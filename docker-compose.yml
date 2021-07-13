@@ -11,10 +11,11 @@ services:
             npm install --global -y yarn &&             
             bundle update &&            
             rails webpacker:install &&
-            rake start"
-        # entrypoint: sh -c "rake start"
+            rake start"        
         ports: 
             - 3000:3000
         working_dir: /.
         volumes: 
             - ./:/container
+
+#docker exec -it name /bin/bash
