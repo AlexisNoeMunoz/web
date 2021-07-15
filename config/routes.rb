@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  root 'test#main'
+  root 'welcome#index'
 end

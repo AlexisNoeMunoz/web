@@ -2,8 +2,10 @@ version: '3.3'
 
 services:
     ruby:        
-        build: . 
-        command: 'rake start'
+        build: .         
+        command: bash -c 'bundle install && bundle update && rake start'
+        stdin_open: true
+        tty: true
         ports: 
             - 3000:3000        
         volumes: 
