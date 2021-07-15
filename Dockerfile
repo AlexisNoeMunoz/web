@@ -1,4 +1,4 @@
-FROM ruby:3.0.2
+FROM alexisnoe27/rails_app:master
 COPY . /rails_app
 WORKDIR /rails_app
 RUN apt-get update 

@@ -2,7 +2,8 @@ version: '3.3'
 
 services:
     ruby:        
-        build: .         
+        build: .       
+        image: alexisnoe27/alexis_app:master  
         command: bash -c 'bundle install && bundle update && rake start'
         stdin_open: true
         tty: true
