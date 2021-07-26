@@ -1,15 +1,50 @@
 version: '3.3'
 
-services:
-    ruby:        
-        build: .       
-        image: alexisnoe27/alexis_app:master  
-        command: bash -c 'bundle install && bundle update && rake start'
-        stdin_open: true
-        tty: true
+services:    
+    mysql:
+        image: mysql:latest
+        restart: always
+        container_name: mysql
+        command: mysqld --default-authentication-plugin=mysql_native_password    
+        ports:
+            - 3307:3306        
+        environment: 
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_DATABASE: development 
+   
+    ruby:
+        build: .               
+        image: alexisnoe27/web:master
+        container_name: 'ruby'        
+        command: bash -c ' 
+            cd rails_app &&        
+            bundle update &&     
+            yarn &&
+            rm -f tmp/pids/server.pid &&                         
+            bundle exec foreman start -f Procfile.dev'                           
+        environment: 
+            MYSQL_USER: root
+            MYSQL_PASSWORD: password
+            MYSQL_PORT: 3306
+            MYSQL_HOST: mysql
+            MYSQL_DATABASE: development
+            RAILS_ENV: development
+            NODE_ENV: development
+            WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
+                        
+        expose:
+            - 3000       
+            - 3035     
         ports: 
-            - 3000:3000        
+            - 3000:3000            
+            - 3035:3035
+        depends_on: 
+            - mysql            
+        links: 
+            - mysql            
         volumes: 
-            - ./:/rails_app
+            - ./:/rails_app               
+        tty: true
+        stdin_open: true
 
-#docker exec -it name /bin/bash
+# docker exec -it rails_app_ruby_1 /bin/bash

@@ -5,7 +5,7 @@ default: &default
   source_entry_path: packs
   public_root_path: public
   public_output_path: packs
-  cache_path: tmp/cache/webpacker
+  cache_path: tmp/cache/webpacker  
   webpack_compile_output: true
 
   # Additional paths webpack should lookup modules
@@ -33,6 +33,7 @@ default: &default
     - .woff2
 
   extensions:
+    - .jsx
     - .mjs
     - .js
     - .sass
@@ -55,9 +56,9 @@ development:
   dev_server:
     https: false
     host: localhost
+    hmr: true
     port: 3035
     public: localhost:3035
-    hmr: false
     # Inline should be set to true if using HMR
     inline: true
     overlay: true
@@ -70,6 +71,8 @@ development:
       'Access-Control-Allow-Origin': '*'
     watch_options:
       ignored: '**/node_modules/**'
+      aggregateTimeout: 300
+      poll: 500
 
 
 test:

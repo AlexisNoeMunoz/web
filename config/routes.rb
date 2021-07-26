@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  root 'welcome#index'
+  root 'router#index'
+
+  get '*', to: 'router#index'
 end

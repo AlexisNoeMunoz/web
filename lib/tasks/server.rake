@@ -1,5 +1,5 @@
 
-task :start do
+task :start do       
     bundle exec 'rails s -b 0.0.0.0'    
 end
 
